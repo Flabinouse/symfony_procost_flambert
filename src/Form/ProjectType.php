@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\Projet;
+use App\Entity\Project;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -11,12 +11,12 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 
-class ProjetType extends AbstractType
+class ProjectType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom', TextType::class, [
+            ->add('name', TextType::class, [
                 'label' => 'Nom',
                 'required' => true,           
             ])
@@ -24,11 +24,11 @@ class ProjetType extends AbstractType
                 'label' => 'Description',
                 'required' => true,  
             ])
-            ->add('prixVente', NumberType::class, [
+            ->add('sellPrice', NumberType::class, [
                 'label' => 'Prix de vente',
                 'required' => true,  
             ])
-            ->add('dateLivraison', DateType::class, [
+            ->add('deliveryDate', DateType::class, [
                 'label' => 'Date de livraison',
                 'required' => true,  
             ])
@@ -38,7 +38,7 @@ class ProjetType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Projet::class,
+            'data_class' => Project::class,
         ]);
     }
 }

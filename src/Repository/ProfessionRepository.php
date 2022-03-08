@@ -2,30 +2,30 @@
 
 namespace App\Repository;
 
-use App\Entity\Metier;
+use App\Entity\Profession;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Metier|null find($id, $lockMode = null, $lockVersion = null)
- * @method Metier|null findOneBy(array $criteria, array $orderBy = null)
- * @method Metier[]    findAll()
- * @method Metier[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Profession|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Profession|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Profession[]    findAll()
+ * @method Profession[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class MetierRepository extends ServiceEntityRepository
+class ProfessionRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Metier::class);
+        parent::__construct($registry, Profession::class);
     }
 
     /**
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function add(Metier $entity, bool $flush = true): void
+    public function add(Profession $entity, bool $flush = true): void
     {
         $this->_em->persist($entity);
         if ($flush) {
@@ -37,7 +37,7 @@ class MetierRepository extends ServiceEntityRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function remove(Metier $entity, bool $flush = true): void
+    public function remove(Profession $entity, bool $flush = true): void
     {
         $this->_em->remove($entity);
         if ($flush) {
@@ -46,7 +46,7 @@ class MetierRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return Metier[] Returns an array of Metier objects
+    //  * @return Profession[] Returns an array of Profession objects
     //  */
     /*
     public function findByExampleField($value)
@@ -63,7 +63,7 @@ class MetierRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Metier
+    public function findOneBySomeField($value): ?Profession
     {
         return $this->createQueryBuilder('m')
             ->andWhere('m.exampleField = :val')

@@ -11,7 +11,7 @@
                         <a href="{{ path('main_index') }}"><i class="fa fa-home fa-lg"></i></a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="{{ path('metier_list') }}">Métiers</a>
+                        <a href="{{ path('profession_list') }}">Métiers</a>
                     </li>
                     <li class="breadcrumb-item">Edition d'un métier</li>
                 </ul>
@@ -26,10 +26,10 @@
                         <div class="row mt-4">
                             <div class="offset-md-4 col-md-8">
                                 <div class="form-group row">
-                                        {{ form_label(form.intitule, null,{'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
+                                        {{ form_label(form.title, null,{'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
                                     <div class="col-md-9">
-                                        {{ form_errors(form.intitule, {'attr': {'class': 'form-control-feedback text-danger'}}) }}
-                                        {{ form_widget(form.intitule, {'attr': {'class': 'form-control', 'placeholder': form.intitule.vars.label}}) }}
+                                        {{ form_errors(form.title, {'attr': {'class': 'form-control-feedback text-danger'}}) }}
+                                        {{ form_widget(form.title, {'attr': {'class': 'form-control', 'placeholder': form.title.vars.label}}) }}
                                     </div>
                                 </div>
                             </div>

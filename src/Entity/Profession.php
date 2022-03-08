@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\MetierRepository;
+use App\Repository\ProfessionRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass=MetierRepository::class)
- * @ORM\Table(name="metier")
+ * @ORM\Entity(repositoryClass=ProfessionRepository::class)
+ * @ORM\Table(name="profession")
  */
-class Metier
+class Profession
 {
     /**
      * @ORM\Id()
@@ -27,26 +27,26 @@ class Metier
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $intitule;
+    private $title;
 
     /**
-     * @ORM\OneToMany(targetEntity=Employe::class, mappedBy="metier")
+     * @ORM\OneToMany(targetEntity=Employee::class, mappedBy="profession")
      */
-    private $employes;
+    private $employese;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getIntitule(): ?string
+    public function getTitle(): ?string
     {
-        return $this->intitule;
+        return $this->title;
     }
 
-    public function setIntitule(string $intitule): self
+    public function setTitle(string $title): self
     {
-        $this->intitule = $intitule;
+        $this->title = $title;
 
         return $this;
     }

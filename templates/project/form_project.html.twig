@@ -11,7 +11,7 @@
                         <a href="{{ path('main_index') }}"><i class="fa fa-home fa-lg"></i></a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="{{ path('projet_list') }}">Projet</a>
+                        <a href="{{ path('project_list') }}">Projet</a>
                     </li>
                     <li class="breadcrumb-item">Edition d'un projet</li>
                 </ul>
@@ -26,10 +26,10 @@
                         <div class="row mt-4">
                             <div class="offset-md-4 col-md-8">
                                 <div class="form-group row">
-                                        {{ form_label(form.nom, null,{'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
+                                        {{ form_label(form.name, null,{'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
                                     <div class="col-md-9">
-                                        {{ form_errors(form.nom, {'attr': {'class': 'form-control-feedback text-danger'}}) }}
-                                        {{ form_widget(form.nom, {'attr': {'class': 'form-control', 'placeholder': form.nom.vars.label}}) }}
+                                        {{ form_errors(form.name, {'attr': {'class': 'form-control-feedback text-danger'}}) }}
+                                        {{ form_widget(form.name, {'attr': {'class': 'form-control', 'placeholder': form.name.vars.label}}) }}
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -48,17 +48,17 @@
                         <div class="row mt-4">
                             <div class="offset-md-4 col-md-8">
                                 <div class="form-group row">
-                                    {{ form_label(form.prixVente, null,{'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
+                                    {{ form_label(form.sellPrice, null,{'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
                                     <div class="col-md-9">
-                                        {{ form_errors(form.prixVente, {'attr': {'class': 'form-control-feedback text-danger'}}) }}
-                                        {{ form_widget(form.prixVente, {'attr': {'class': 'form-control'}}) }}
+                                        {{ form_errors(form.sellPrice, {'attr': {'class': 'form-control-feedback text-danger'}}) }}
+                                        {{ form_widget(form.sellPrice, {'attr': {'class': 'form-control'}}) }}
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    {{ form_label(form.dateLivraison, null,{'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
+                                    {{ form_label(form.deliveryDate, null,{'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
                                     <div class="col-md-9">
-                                        {{ form_errors(form.dateLivraison, {'attr': {'class': 'form-control-feedback text-danger'}}) }}
-                                        {{ form_widget(form.dateLivraison, {'attr': {'class': 'form-control', 'placeholder': form.dateLivraison.vars.label}}) }}
+                                        {{ form_errors(form.deliveryDate, {'attr': {'class': 'form-control-feedback text-danger'}}) }}
+                                        {{ form_widget(form.deliveryDate, {'attr': {'class': 'form-control', 'placeholder': form.deliveryDate.vars.label}}) }}
                                     </div>
                                 </div>
                             </div>

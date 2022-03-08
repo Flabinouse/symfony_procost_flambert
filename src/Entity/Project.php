@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\ProjetRepository;
+use App\Repository\ProjectRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass=ProjetRepository::class)
- * @ORM\Table(name="projet")
+ * @ORM\Entity(repositoryClass=ProjectRepository::class)
+ * @ORM\Table(name="project")
  */
-class Projet
+class Project
 {
     /**
      * @ORM\Id()
@@ -27,7 +27,7 @@ class Projet
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $nom;
+    private $name;
 
     /**
      * @var string
@@ -47,7 +47,7 @@ class Projet
     /** 
      * @ORM\Column(type="float")
      */
-    private $prixVente;
+    private $sellPrice;
 
     /**
      * @var \DateTime
@@ -65,21 +65,21 @@ class Projet
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $dateLivraison;
+    private $deliveryDate;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getNom(): ?string
+    public function getName(): ?string
     {
-        return $this->nom;
+        return $this->name;
     }
 
-    public function setNom(string $nom): self
+    public function setName(string $name): self
     {
-        $this->nom = $nom;
+        $this->name = $name;
 
         return $this;
     }
@@ -96,14 +96,14 @@ class Projet
         return $this;
     }
 
-    public function getPrixVente(): ?float
+    public function getSellPrice(): ?float
     {
-        return $this->prixVente;
+        return $this->sellPrice;
     }
 
-    public function setPrixVente(float $prixVente): self
+    public function setSellPrice(float $sellPrice): self
     {
-        $this->prixVente = $prixVente;
+        $this->sellPrice = $sellPrice;
 
         return $this;
     }
@@ -120,14 +120,14 @@ class Projet
         return $this;
     }
 
-    public function getDateLivraison(): ?\DateTimeInterface
+    public function getDeliveryDate(): ?\DateTimeInterface
     {
-        return $this->dateLivraison;
+        return $this->deliveryDate;
     }
 
-    public function setDateLivraison(?\DateTimeInterface $dateLivraison): self
+    public function setDeliveryDate(?\DateTimeInterface $deliveryDate): self
     {
-        $this->dateLivraison = $dateLivraison;
+        $this->deliveryDate = $deliveryDate;
 
         return $this;
     }

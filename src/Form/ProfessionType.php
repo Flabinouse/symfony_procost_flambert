@@ -2,18 +2,18 @@
 
 namespace App\Form;
 
-use App\Entity\Metier;
+use App\Entity\Profession;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-class MetierType extends AbstractType
+class ProfessionType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('intitule', TextType::class, [
+            ->add('title', TextType::class, [
                 'label' => 'Intitulé'
             ])
         ;
@@ -22,7 +22,7 @@ class MetierType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Metier::class,
+            'data_class' => Profession::class,
         ]);
     }
 }

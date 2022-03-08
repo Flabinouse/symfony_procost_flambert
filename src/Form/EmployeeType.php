@@ -2,8 +2,8 @@
 
 namespace App\Form;
 
-use App\Entity\Employe;
-use App\Entity\Metier;
+use App\Entity\Employee;
+use App\Entity\Profession;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -13,29 +13,29 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 
-class EmployeType extends AbstractType
+class EmployeeType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('prenom', TextType::class, [
+            ->add('firstName', TextType::class, [
                 'label' => 'Prénom'          
             ])
-            ->add('nom', TextType::class, [
+            ->add('lastName', TextType::class, [
                 'label' => 'Nom'
             ])
             ->add('email', TextType::class, [
                 'label' => 'Email'
             ])
-            ->add('metier', EntityType::class, [
-                'class' => Metier::class,
-                'choice_label' => 'intitule',
+            ->add('profession', EntityType::class, [
+                'class' => Profession::class,
+                'choice_label' => 'title',
                 'label' => 'Métier'
             ])
-            ->add('coutJournalier', NumberType::class, [
+            ->add('dailyCost', NumberType::class, [
                 'label' => 'Coût journalier'
             ])
-            ->add('dateEmbauche', DateType::class, [
+            ->add('hireDate', DateType::class, [
                 'label' => 'Date d\'embauche'
             ])
         ;
@@ -44,7 +44,7 @@ class EmployeType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Employe::class,
+            'data_class' => Employee::class,
         ]);
     }
 }

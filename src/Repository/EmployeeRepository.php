@@ -2,30 +2,30 @@
 
 namespace App\Repository;
 
-use App\Entity\Projet;
+use App\Entity\Employee;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Projet|null find($id, $lockMode = null, $lockVersion = null)
- * @method Projet|null findOneBy(array $criteria, array $orderBy = null)
- * @method Projet[]    findAll()
- * @method Projet[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Employee|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Employee|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Employee[]    findAll()
+ * @method Employee[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ProjetRepository extends ServiceEntityRepository
+class EmployeeRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Projet::class);
+        parent::__construct($registry, Employee::class);
     }
 
     /**
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function add(Projet $entity, bool $flush = true): void
+    public function add(Employee $entity, bool $flush = true): void
     {
         $this->_em->persist($entity);
         if ($flush) {
@@ -37,7 +37,7 @@ class ProjetRepository extends ServiceEntityRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function remove(Projet $entity, bool $flush = true): void
+    public function remove(Employee $entity, bool $flush = true): void
     {
         $this->_em->remove($entity);
         if ($flush) {
@@ -46,15 +46,15 @@ class ProjetRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return Projet[] Returns an array of Projet objects
+    //  * @return Employee[] Returns an array of Employee objects
     //  */
     /*
     public function findByExampleField($value)
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
+        return $this->createQueryBuilder('e')
+            ->andWhere('e.exampleField = :val')
             ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
+            ->orderBy('e.id', 'ASC')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()
@@ -63,10 +63,10 @@ class ProjetRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Projet
+    public function findOneBySomeField($value): ?Employee
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
+        return $this->createQueryBuilder('e')
+            ->andWhere('e.exampleField = :val')
             ->setParameter('val', $value)
             ->getQuery()
             ->getOneOrNullResult()

@@ -11,7 +11,7 @@
                         <a href="{{ path('main_index') }}"><i class="fa fa-home fa-lg"></i></a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="{{ path('employe_list') }}">Employés</a>
+                        <a href="{{ path('employee_list') }}">Employés</a>
                     </li>
                     <li class="breadcrumb-item">Edition d'un employé</li>
                 </ul>
@@ -27,17 +27,17 @@
                         <div class="row mt-4">
                             <div class="offset-md-4 col-md-8">
                                 <div class="form-group row">
-                                    {{ form_label(form.prenom, null,{'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
+                                    {{ form_label(form.firstName, null,{'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
                                     <div class="col-md-9">
-                                        {{ form_errors(form.prenom, {'attr': {'class': 'form-control-feedback text-danger'}}) }}
-                                        {{ form_widget(form.prenom, {'attr': {'class': 'form-control', 'placeholder': form.prenom.vars.label}}) }}
+                                        {{ form_errors(form.firstName, {'attr': {'class': 'form-control-feedback text-danger'}}) }}
+                                        {{ form_widget(form.firstName, {'attr': {'class': 'form-control', 'placeholder': form.firstName.vars.label}}) }}
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                        {{ form_label(form.nom, null,{'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
+                                        {{ form_label(form.lastName, null,{'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
                                     <div class="col-md-9">
-                                        {{ form_errors(form.nom, {'attr': {'class': 'form-control-feedback text-danger'}}) }}
-                                        {{ form_widget(form.nom, {'attr': {'class': 'form-control', 'placeholder': form.nom.vars.label}}) }}
+                                        {{ form_errors(form.lastName, {'attr': {'class': 'form-control-feedback text-danger'}}) }}
+                                        {{ form_widget(form.lastName, {'attr': {'class': 'form-control', 'placeholder': form.lastName.vars.label}}) }}
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -56,23 +56,23 @@
                         <div class="row mt-4">
                             <div class="offset-md-4 col-md-8">
                                 <div class="form-group row">
-                                    {{ form_label(form.metier, null,{'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
+                                    {{ form_label(form.profession, null,{'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
                                     <div class="col-md-9">
-                                        {{ form_widget(form.metier, {'attr': {'class': 'form-control'}}) }}
+                                        {{ form_widget(form.profession, {'attr': {'class': 'form-control'}}) }}
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    {{ form_label(form.coutJournalier, null,{'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
+                                    {{ form_label(form.dailyCost, null,{'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
                                     <div class="col-md-9">
-                                        {{ form_errors(form.coutJournalier, {'attr': {'class': 'form-control-feedback text-danger'}}) }}
-                                        {{ form_widget(form.coutJournalier, {'attr': {'class': 'form-control', 'placeholder': form.coutJournalier.vars.label}}) }}
+                                        {{ form_errors(form.dailyCost, {'attr': {'class': 'form-control-feedback text-danger'}}) }}
+                                        {{ form_widget(form.dailyCost, {'attr': {'class': 'form-control', 'placeholder': form.dailyCost.vars.label}}) }}
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    {{ form_label(form.dateEmbauche, null,{'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
+                                    {{ form_label(form.hireDate, null,{'label_attr': {'class': 'col-sm-3 col-form-label'}}) }}
                                     <div class="col-md-9">
-                                        {{ form_errors(form.dateEmbauche, {'attr': {'class': 'form-control-feedback text-danger'}}) }}
-                                        {{ form_widget(form.dateEmbauche, {'attr': {'class': 'form-control', 'placeholder': form.dateEmbauche.vars.label}}) }}
+                                        {{ form_errors(form.hireDate, {'attr': {'class': 'form-control-feedback text-danger'}}) }}
+                                        {{ form_widget(form.hireDate, {'attr': {'class': 'form-control', 'placeholder': form.hireDate.vars.label}}) }}
                                     </div>
                                 </div>
                             </div>

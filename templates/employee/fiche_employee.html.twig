@@ -4,16 +4,16 @@
 <main class="app-content">
             <div class="app-title">
                 <div>
-                    <h1><i class="fa fa-users"></i>&nbsp;Suivi du projet X</h1>
+                    <h1><i class="fa fa-users"></i>&nbsp;Suivi de Prénom NOM</h1>
                 </div>
                 <ul class="app-breadcrumb breadcrumb">
                     <li class="breadcrumb-item">
                         <a href="{{ path('main_index') }}"><i class="fa fa-home fa-lg"></i></a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="{{ path('projet_list') }}">Projets</a>
+                        <a href="{{ path('employee_list') }}">Employés</a>
                     </li>
-                    <li class="breadcrumb-item">Suivi du projet X</li>
+                    <li class="breadcrumb-item">Suivi de Prénom NOM</li>
                 </ul>
             </div>
             <div class="row">
@@ -47,7 +47,7 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <a href="{{ path('projet_form') }}" class="btn btn-info">
+                        <a href="{{ path('employee_form') }}" class="btn btn-info">
                             <i class="fa fa-pencil"></i>Modifier
                         </a>
                     </div>

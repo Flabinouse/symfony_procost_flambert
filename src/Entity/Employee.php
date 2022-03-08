@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\EmployeRepository;
+use App\Repository\EmployeeRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass=EmployeRepository::class)
- * @ORM\Table(name="employe")
+ * @ORM\Entity(repositoryClass=EmployeeRepository::class)
+ * @ORM\Table(name="employee")
  */
-class Employe
+class Employee
 {
     /**
      * @ORM\Id()
@@ -27,7 +27,7 @@ class Employe
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $prenom;
+    private $firstName;
 
     /**
      * @var string
@@ -37,7 +37,7 @@ class Employe
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $nom;
+    private $lastName;
 
     /**
      * @var string
@@ -50,12 +50,12 @@ class Employe
     private $email;
 
     /**
-     * @var Metier
+     * @var Profession
      * 
-     * @ORM\ManyToOne(targetEntity=Metier::class, inversedBy="employes")
+     * @ORM\ManyToOne(targetEntity=Profession::class, inversedBy="employees")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $metier;
+    private $profession;
 
     /**
      * @var float
@@ -65,7 +65,7 @@ class Employe
     /**
      * @ORM\Column(type="float")
      */
-    private $coutJournalier;
+    private $dailyCost;
 
     /**
      * @var \DateTime
@@ -75,33 +75,33 @@ class Employe
     /**
      * @ORM\Column(type="date")
      */
-    private $dateEmbauche;
+    private $hireDate;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getPrenom(): ?string
+    public function getFirstName(): ?string
     {
-        return $this->prenom;
+        return $this->firstName;
     }
 
-    public function setPrenom(string $prenom): self
+    public function setFirstName(string $firstName): self
     {
-        $this->prenom = $prenom;
+        $this->firstName = $firstName;
 
         return $this;
     }
 
-    public function getNom(): ?string
+    public function getLastName(): ?string
     {
-        return $this->nom;
+        return $this->lastName;
     }
 
-    public function setNom(string $nom): self
+    public function setLastName(string $lastName): self
     {
-        $this->nom = $nom;
+        $this->lastName = $lastName;
 
         return $this;
     }
@@ -118,38 +118,38 @@ class Employe
         return $this;
     }
 
-    public function getMetier(): ?Metier
+    public function getProfession(): ?Profession
     {
-        return $this->metier;
+        return $this->profession;
     }
 
-    public function setMetier(Metier $metier): self
+    public function setProfession(Profession $profession): self
     {
-        $this->metier = $metier;
+        $this->profession = $profession;
 
         return $this;
     }
 
-    public function getCoutJournalier(): ?float
+    public function getDailyCost(): ?float
     {
-        return $this->coutJournalier;
+        return $this->dailyCost;
     }
 
-    public function setCoutJournalier(float $coutJournalier): self
+    public function setDailyCost(float $dailyCost): self
     {
-        $this->coutJournalier = $coutJournalier;
+        $this->dailyCost = $dailyCost;
 
         return $this;
     }
 
-    public function getDateEmbauche(): ?\DateTimeInterface
+    public function getHireDate(): ?\DateTimeInterface
     {
-        return $this->dateEmbauche;
+        return $this->hireDate;
     }
 
-    public function setDateEmbauche(\DateTimeInterface $dateEmbauche): self
+    public function setHireDate(\DateTimeInterface $hireDate): self
     {
-        $this->dateEmbauche = $dateEmbauche;
+        $this->hireDate = $hireDate;
 
         return $this;
     }
