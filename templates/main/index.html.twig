@@ -1,0 +1,215 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+        <main class="app-content">
+            <div class="app-title">
+                <div>
+                    <h1><i class="fa fa-dashboard"></i>&nbsp;Tableau de bord</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="widget-small info coloured-icon">
+                                <i class="icon fa fa-spinner fa-3x" aria-hidden="true"></i>
+                                <div class="info">
+                                    <p class="text-muted text-sm text-uppercase">Projets en cours</p>
+                                    <p><strong>11</strong></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="widget-small warning coloured-icon">
+                                <i class="icon fa fa-check-square-o fa-3x" aria-hidden="true"></i>
+                                <div class="info">
+                                    <p class="text-muted text-sm text-uppercase">Projets livrés</p>
+                                    <p><strong>76</strong></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="widget-small primary coloured-icon">
+                                <i class="icon fa fa-users fa-3x"></i>
+                                <div class="info">
+                                    <p class="text-muted text-sm text-uppercase">Employés</p>
+                                    <p><strong>34</strong></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="widget-small danger coloured-icon">
+                                <i class="icon fa fa-calendar-check-o fa-3x" aria-hidden="true"></i>
+                                <div class="info">
+                                    <p class="text-muted text-sm text-uppercase">Jours de production</p>
+                                    <p><strong>267</strong></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card text-uppercase">
+                                <div class="card-header text-center">Rentabilité</div>
+                                <div class="card-body">
+                                    <p class="text-muted">
+                                        <i class="fa fa-database mr-2 text-primary"></i> 70% RENTABLE
+                                    </p>
+                                    <div class="embed-responsive embed-responsive-16by9">
+                                        <canvas id="ratio-chart" class="embed-responsive-item"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card text-uppercase">
+                                <div class="card-header text-center">Taux de livraison</div>
+                                <div class="card-body">
+                                    <p class="text-muted">
+                                        <i class="fa fa fa-check-square-o mr-2 text-primary"></i> 35% Livrés
+                                    </p>
+                                    <div class="embed-responsive embed-responsive-16by9">
+                                        <canvas id="delivered-chart" class="embed-responsive-item"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-header text-center text-uppercase">Top employé</div>
+                                <div class="card-body">
+                                    <div class="text-center">
+                                        <img src="img/ui-zac.jpg" class="rounded-circle" width="58">
+                                        <p class="mt-2">
+                                            <strong>Zac Producteur</strong>
+                                        </p>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <p class="small mt">EMPLOYÉ DEPUIS</p>
+                                            <p>Février 2012</p>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p class="small mt">COÛT TOTAL</p>
+                                            <p>34 567 €</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="tile table-responsive">
+                        <h2 class="tile-title">Les derniers projets</h2>
+                        <table class="table table-hover table-striped table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Projet</th>
+                                    <th>Date de création</th>
+                                    <th>Prix de vente</th>
+                                    <th>Coût</th>
+                                    <th>Est livré</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>
+                                        <a href="#">Mon projet</a>
+                                    </th>
+                                    <th>18/03/2018</th>
+                                    <th>20 000 €</th>
+                                    <th>3 200 €</th>
+                                    <th>
+                                        <span class="badge badge-success">OUI</span>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <a href="#">Mon projet</a>
+                                    </th>
+                                    <th>18/03/2018</th>
+                                    <th>20 000 €</th>
+                                    <th>3 200 €</th>
+                                    <th>
+                                        <span class="badge badge-success">OUI</span>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <a href="#">Mon projet</a>
+                                    </th>
+                                    <th>18/03/2018</th>
+                                    <th>20 000 €</th>
+                                    <th>3 200 €</th>
+                                    <th>
+                                        <span class="badge badge-success">OUI</span>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <a href="#">Mon projet</a>
+                                    </th>
+                                    <th>18/03/2018</th>
+                                    <th>20 000 €</th>
+                                    <th>3 200 €</th>
+                                    <th>
+                                        <span class="badge badge-success">OUI</span>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <a href="#">Mon projet</a>
+                                    </th>
+                                    <th>18/03/2018</th>
+                                    <th>20 000 €</th>
+                                    <th>3 200 €</th>
+                                    <th>
+                                        <span class="badge badge-danger">NON</span>
+                                    </th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="tile">
+                        <h2 class="tile-title text-center">Temps de production</h2>
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <a href="#">James Brown</a> a travaillé sur <a href="#">Projet 1</a>
+                                <div class="text-muted font-italic text-right">4 jours</div>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="#">James Brown</a> a travaillé sur <a href="#">Projet 1</a>
+                                <div class="text-muted font-italic text-right">4 jours</div>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="#">James Brown</a> a travaillé sur <a href="#">Projet 1</a>
+                                <div class="text-muted font-italic text-right">4 jours</div>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="#">James Brown</a> a travaillé sur <a href="#">Projet 1</a>
+                                <div class="text-muted font-italic text-right">4 jours</div>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="#">James Brown</a> a travaillé sur <a href="#">Projet 1</a>
+                                <div class="text-muted font-italic text-right">4 jours</div>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="#">James Brown</a> a travaillé sur <a href="#">Projet 1</a>
+                                <div class="text-muted font-italic text-right">4 jours</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </main>
+{% endblock %}
+{% block javascripts %}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js" integrity="sha256-oSgtFCCmHWRPQ/JmR4OoZ3Xke1Pw4v50uh6pLcu+fIc=" crossorigin="anonymous"></script>
+        <script>
+            var ratioData = [70, 30];
+            var deliveredData = [35, 65];
+        </script>
+        <script src="{{ asset('assets/js/dashboard.js') }}"></script>
+{% endblock %}

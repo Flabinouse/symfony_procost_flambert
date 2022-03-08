@@ -1,0 +1,186 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+<main class="app-content">
+            <div class="app-title">
+                <div>
+                    <h1><i class="fa fa-users"></i>&nbsp;Suivi de Prénom NOM</h1>
+                </div>
+                <ul class="app-breadcrumb breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="{{ path('main_index') }}"><i class="fa fa-home fa-lg"></i></a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="{{ path('employe_list') }}">Employés</a>
+                    </li>
+                    <li class="breadcrumb-item">Suivi de Prénom NOM</li>
+                </ul>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="tile">
+                        <table class="table table-striped table-bordered table-sm">
+                            <tbody>
+                                <tr>
+                                    <th>Prénom</td>
+                                    <td>Jack</td>
+                                </tr>
+                                <tr>
+                                    <th>Nom</td>
+                                    <td>FROST</td>
+                                </tr>
+                                <tr>
+                                    <th>Email</td>
+                                    <td>jfrost@procost.com</td>
+                                </tr>
+                                <tr>
+                                    <th>Métier</td>
+                                    <td>Web developer</td>
+                                </tr>
+                                <tr>
+                                    <th>Coût journalier</td>
+                                    <td>500 €</td>
+                                </tr>
+                                <tr>
+                                    <th>Date d'embauche</td>
+                                    <td>1 mai 2018</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <a href="{{ path('employe_form') }}" class="btn btn-info">
+                            <i class="fa fa-pencil"></i>Modifier
+                        </a>
+                    </div>
+                    <div class="tile">
+                        <h3 class="title-title mb-4">Ajouter un temps</h3>
+                        <form class="form-horizontal">
+                            <div class="form-group row">
+                                <label for="select-projects" class="control-label col-md-6">Projet concerné</label>
+                                <div class="col-md-6">
+                                    <select class="form-control" id="select-projects">
+                                        <option>Projet 1</option>
+                                        <option>Projet 2</option>
+                                        <option>Projet 3</option>
+                                        <option>Projet 4</option>
+                                        <option>Projet 5</option>
+                                        <option>Projet 6</option>
+                                        <option>Projet 7</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="days-count" class="control-label col-md-6">Nombre de jours</label>
+                                <div class="col-md-6">
+                                    <input id="days-count" class="form-control" type="number" min="1">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="offset-md-6 col-md-8">
+                                    <button type="submit" class="btn btn-success"><i class="fa fa-save"></i>Enregistrer</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="tile pb-5">
+                        <h3 class="tile-title">Historique des temps de production</h3>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Projet</th>
+                                        <th>Temps</th>
+                                        <th>Date de saisie</th>
+                                        <th>Coût total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Nom du projet</td>
+                                        <td>4 jours</td>
+                                        <td>23-04-2018</td>
+                                        <td>1 400 €</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nom du projet</td>
+                                        <td>4 jours</td>
+                                        <td>23-04-2018</td>
+                                        <td>1 400 €</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nom du projet</td>
+                                        <td>4 jours</td>
+                                        <td>23-04-2018</td>
+                                        <td>1 400 €</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nom du projet</td>
+                                        <td>4 jours</td>
+                                        <td>23-04-2018</td>
+                                        <td>1 400 €</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nom du projet</td>
+                                        <td>4 jours</td>
+                                        <td>23-04-2018</td>
+                                        <td>1 400 €</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nom du projet</td>
+                                        <td>4 jours</td>
+                                        <td>23-04-2018</td>
+                                        <td>1 400 €</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nom du projet</td>
+                                        <td>4 jours</td>
+                                        <td>23-04-2018</td>
+                                        <td>1 400 €</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nom du projet</td>
+                                        <td>4 jours</td>
+                                        <td>23-04-2018</td>
+                                        <td>1 400 €</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nom du projet</td>
+                                        <td>4 jours</td>
+                                        <td>23-04-2018</td>
+                                        <td>1 400 €</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nom du projet</td>
+                                        <td>4 jours</td>
+                                        <td>23-04-2018</td>
+                                        <td>1 400 €</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <hr/>
+                        <nav class="float-right">
+                            <ul class="pagination">
+                                <li class="page-item disabled">
+                                    <span class="page-link">&laquo;</span>
+                                </li>
+                                <li class="page-item active" aria-current="page">
+                                    <span class="page-link">1<span class="sr-only">(current)</span></span>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">2</a></li>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">3</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">&raquo;</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </main>
+{% endblock %}

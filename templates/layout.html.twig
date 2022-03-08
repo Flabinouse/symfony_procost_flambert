@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+<!-- Navbar -->
+        <header class="app-header"><a class="app-header__logo" href="#">Procost</a>
+            {# <a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a> #}
+            <!-- Navbar Right Menu-->
+            <ul class="app-nav">
+                {# <li class="app-search">
+                    <a href="login.html" class="btn btn-info">Se déconnecter</a>
+                </li> #}
+            </ul>
+        </header>
+        <!-- Sidebar menu-->
+        <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
+        <aside class="app-sidebar">
+            {% set current_route = app.request.attributes.get('_route') %}
+            <div class="app-sidebar__user">
+                <img class="app-sidebar__user-avatar" src="img/user.jpg" alt="User Image">
+                <div>
+                    <p class="app-sidebar__user-name">John Doe</p>
+                    <p class="app-sidebar__user-designation">Manager</p>
+                </div>
+            </div>
+            <ul class="app-menu">
+                <li>
+                    <a class="app-menu__item {{ current_route is same as('main_index') ? 'active' }}" 
+                        href="{{ path('main_index') }}">
+                        <i class="app-menu__icon fa fa-dashboard"></i>
+                        <span class="app-menu__label">Tableau de bord</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="app-menu__item {{ current_route is same as('projet_list') ? 'active' }}" 
+                    href="{{ path('projet_list') }}">
+                        <i class="app-menu__icon fa fa-laptop"></i>
+                        <span class="app-menu__label">Projets</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="app-menu__item {{ current_route is same as('employe_list') ? 'active' }}" 
+                    href="{{ path('employe_list') }}">
+                        <i class="app-menu__icon fa fa-users"></i>
+                        <span class="app-menu__label">Employés</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="app-menu__item {{ current_route is same as('employe_list') ? 'active' }}" 
+                    href="{{ path('metier_list') }}">
+                        <i class="app-menu__icon fa fa-book"></i>
+                        <span class="app-menu__label">Métiers</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+{% block content %}{% endblock %}
+        <footer>
+            <p>&copy; {{ 'now'|date('D M Y') }} - PROCOST</p>
+        </footer>
+
+{% endblock %}
+
+{# {% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('assets/js/jquery.js') }}"></script>
+    <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+{% endblock %} #}
