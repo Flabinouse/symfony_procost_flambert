@@ -4,23 +4,22 @@ declare (strict_types = 1);
 
 namespace App\Controller;
 
+use App\Entity\Projet;
+use App\Form\ProjetType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Doctrine\ORM\EntityManagerInterface;
 
 final class ProjetController extends AbstractController
 {
-    // private $productRepository;
-    // private $brandRepository;
-    // private $commentManager;
+    private $em;
 
-    // public function __construct(ProductRepository $productRepository, BrandRepository $brandRepository, CommentManager $commentManager)
-    // {
-    //     $this->productRepository = $productRepository;
-    //     $this->brandRepository = $brandRepository;
-    //     $this->commentManager = $commentManager;
-    // }
+    public function __construct(EntityManagerInterface $em)
+    {
+        $this->em = $em;
+    }
 
     /**
      * @Route("/projet/list", name="projet_list", methods={"GET"})
@@ -37,10 +36,23 @@ final class ProjetController extends AbstractController
      * @Route("/projet/form", name="projet_form", methods={"GET", "POST"})
      */
 
-    public function formProjet(): Response
+    public function formProjet(Request $request): Response
     {
+        $projet = new Projet();
+        $form = $this->createForm(ProjetType::class, $projet);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $projet->setCreatedAt(new \DateTime());
+            $this->em->persist($projet);
+            $this->em->flush();
+
+            return $this->redirectToRoute('projet_list');
+        }
+
         return $this->render('projet/form_projet.html.twig', [
             'controller_name' => 'ProjetController',
+            'form' => $form->createView(),
         ]);
     }
 
