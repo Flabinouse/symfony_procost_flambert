@@ -7,11 +7,13 @@ namespace App\Controller;
 use App\Entity\Profession;
 Use App\Form\ProfessionType;
 use App\Repository\ProfessionRepository;
+use Container00xJNnB\PaginatorInterface_82dac15;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 
 final class ProfessionController extends AbstractController
 {
@@ -27,13 +29,18 @@ final class ProfessionController extends AbstractController
      * @Route("/profession/list", name="profession_list", methods={"GET"})
      */
 
-    public function listProfession(): Response
+    public function listProfession(Request $request, PaginatorInterface $paginator): Response
     {
         $professions = $this->er->findAll();
+        $filterProfessions = $paginator->paginate(
+            $professions,
+            $request->query->getInt('page', 1),
+            10
+        );
 
         return $this->render('profession/list_profession.html.twig', [
             'controller_name' => 'ProfessionController',
-            'professions' => $professions,
+            'professions' => $filterProfessions,
         ]);
     }
 

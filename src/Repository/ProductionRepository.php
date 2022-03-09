@@ -45,6 +45,25 @@ class ProductionRepository extends ServiceEntityRepository
         }
     }
 
+    public function findTenProdByDate(): array
+    {
+        return $this->createQueryBuilder('p')
+            ->orderBy('p.createdAt', 'DESC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function countProductionDays(): int
+    {
+        return $this->createQueryBuilder('p')
+            ->select('SUM(p.nbDays)')
+            ->getQuery()
+            ->getSingleScalarResult()
+        ;
+    }
+
     // /**
     //  * @return Production[] Returns an array of Production objects
     //  */

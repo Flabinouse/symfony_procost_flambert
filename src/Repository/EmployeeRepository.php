@@ -45,6 +45,15 @@ class EmployeeRepository extends ServiceEntityRepository
         }
     }
 
+    public function countEmployees(): int
+    {
+        return $this->createQueryBuilder('e')
+            ->select('COUNT(e)')
+            ->getQuery()
+            ->getSingleScalarResult()
+        ;
+    }
+
     // /**
     //  * @return Employee[] Returns an array of Employee objects
     //  */

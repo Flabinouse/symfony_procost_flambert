@@ -4,7 +4,7 @@
 <main class="app-content">
             <div class="app-title">
                 <div>
-                    <h1><i class="fa fa-users"></i>&nbsp;Suivi du projet X</h1>
+                    <h1><i class="fa fa-users"></i>&nbsp;Suivi du projet {{ project.name }}</h1>
                 </div>
                 <ul class="app-breadcrumb breadcrumb">
                     <li class="breadcrumb-item">
@@ -13,7 +13,7 @@
                     <li class="breadcrumb-item">
                         <a href="{{ path('project_list') }}">Projets</a>
                     </li>
-                    <li class="breadcrumb-item">Suivi du projet X</li>
+                    <li class="breadcrumb-item">Suivi du projet {{ project.name }}</li>
                 </ul>
             </div>
             <div class="row">
@@ -43,7 +43,7 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <a href="{{ path('project_form') }}" class="btn btn-info">
+                        <a href="{{ path('project_form', {'id': project.id}) }}" class="btn btn-info">
                             <i class="fa fa-pencil"></i>Modifier
                         </a>
                     </div>

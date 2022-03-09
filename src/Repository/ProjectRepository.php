@@ -45,6 +45,36 @@ class ProjectRepository extends ServiceEntityRepository
         }
     }
 
+    public function countInProgressProject(): int
+    {
+        return $this->createQueryBuilder('p')
+            ->select('COUNT(p)')
+            ->where('p.deliveryDate IS NULL')
+            ->getQuery()
+            ->getSingleScalarResult()
+        ;
+    }
+
+    public function countFinishedProject(): int
+    {
+        return $this->createQueryBuilder('p')
+            ->select('COUNT(p)')
+            ->where('p.deliveryDate IS NOT NULL')
+            ->getQuery()
+            ->getSingleScalarResult()
+        ;
+    }
+
+    public function findFiveProjByDate(): array
+    {
+        return $this->createQueryBuilder('p')
+            ->orderBy('p.deliveryDate', 'DESC')
+            ->setMaxResults(5)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Project[] Returns an array of Project objects
     //  */

@@ -9,11 +9,13 @@ use App\Form\EmployeeType;
 use App\Entity\Production;
 use App\Form\ProductionType;
 use App\Repository\EmployeeRepository;
+use ContainerFNxgEOQ\PaginatorInterface_82dac15;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 
 final class EmployeeController extends AbstractController
 {
@@ -30,13 +32,18 @@ final class EmployeeController extends AbstractController
      * @Route("/employee/list", name="employee_list", methods={"GET"})
      */
 
-    public function listEmployee(): Response
+    public function listEmployee(Request $request, PaginatorInterface $paginator): Response
     {
         $employees = $this->er->findAll();
+        $filterEmployees = $paginator->paginate(
+            $employees,
+            $request->query->getInt('page', 1),
+            10
+        );
 
         return $this->render('employee/list_employee.html.twig', [
             'controller_name' => 'EmployeeController',
-            'employees' => $employees,
+            'employees' => $filterEmployees,
         ]);
     }
 
@@ -70,7 +77,7 @@ final class EmployeeController extends AbstractController
      * @Route("/employee/detail/{id}", name="employee_detail", requirements={"id"="\d+"}, methods={"GET", "POST"})
      */
 
-    public function detailEmployee(Request $request, int $id): Response
+    public function detailEmployee(Request $request, int $id, PaginatorInterface $paginator): Response
     {
         $employee = $this->er->find($id);
 
@@ -78,6 +85,11 @@ final class EmployeeController extends AbstractController
         $production->setEmployee($employee);
         $form = $this->createForm(ProductionType::class, $production);
         $form->handleRequest($request);
+        $filterEmployeeProductions = $paginator->paginate(
+            $employee->getProductions(),
+            $request->query->getInt('page', 1),
+            5
+        );
 
         if($form->isSubmitted() && $form->isValid()) {
             $production->setCreatedAt(new \DateTime());
@@ -90,6 +102,7 @@ final class EmployeeController extends AbstractController
         return $this->render('employee/detail_employee.html.twig', [
             'controller_name' => 'EmployeeController',
             'employee' => $employee,
+            'filterEmployeeProductions' => $filterEmployeeProductions,
             'form' => $form->createView(),
         ]);
     }

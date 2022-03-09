@@ -13,7 +13,7 @@
                     <li class="breadcrumb-item">
                         <a href="{{ path('employee_list') }}">Employés</a>
                     </li>
-                    <li class="breadcrumb-item">Suivi de Prénom NOM</li>
+                    <li class="breadcrumb-item">Suivi de {{ employee.firstName }} {{ employee.lastName }}</li>
                 </ul>
             </div>
             <div class="row">
@@ -89,7 +89,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                {% for production in employee.productions %}
+                                {% for production in filterEmployeeProductions %}
                                     <tr>
                                         <td>{{ production.project.name }}</td>
                                         <td>{{ production.nbDays }}</td>
@@ -102,7 +102,8 @@
                         </div>
                         <hr/>
                         <nav class="float-right">
-                            <ul class="pagination">
+                            {{ knp_pagination_render(filterEmployeeProductions, 'pagination.html.twig') }}
+                            {# <ul class="pagination">
                                 <li class="page-item disabled">
                                     <span class="page-link">&laquo;</span>
                                 </li>
@@ -118,7 +119,7 @@
                                 <li class="page-item">
                                     <a class="page-link" href="#">&raquo;</a>
                                 </li>
-                            </ul>
+                            </ul> #}
                         </nav>
                     </div>
                 </div>

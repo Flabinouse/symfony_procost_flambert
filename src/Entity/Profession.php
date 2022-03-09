@@ -53,7 +53,7 @@ class Profession
 
     public function setTitle(string $title): self
     {
-        $this->title = $title;
+        $this->title = ucfirst($title);
 
         return $this;
     }

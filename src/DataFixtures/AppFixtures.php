@@ -34,9 +34,9 @@ class AppFixtures extends Fixture
         for($i = 1; $i < 16; $i++) {
 
             $employee = new Employee();
-            $employee->setFirstname('firstname'.$i);
-            $employee->setLastname('lastname'.$i);
-            $employee->setEmail('firstlast'.$i.'@gmail.com');
+            $employee->setFirstname('John'.$i);
+            $employee->setLastname('DOE'.$i);
+            $employee->setEmail('johndoe'.$i.'@gmail.com');
             $employee->setProfession($this->getReference(Profession::class . random_int(0, 6)));
             $employee->setDailyCost(rand(50, 300));
             $employee->setHireDate(new \DateTime());
@@ -64,11 +64,11 @@ class AppFixtures extends Fixture
     {
         for($i = 1; $i < 16; $i++) {
             $project = new Project();
-            $project->setName('project'.$i);
+            $project->setName('Projet'.$i);
             $project->setDescription('description'.$i);
             $project->setCreatedAt(new \DateTime(2019 . '-' . 03 . '-' . $i));
             $project->setDeliveryDate(null);
-            $project->setSellPrice(rand(1000, 3000));
+            $project->setSellPrice(rand(15000, 30000));
             $this->addReference(Project::class . $i, $project);
             $this->manager->persist($project);
             sleep(1);
@@ -82,10 +82,11 @@ class AppFixtures extends Fixture
         for($i = 1; $i < 6; $i++) {
             $production = new Production();
             $production->setProject($this->getReference(Project::class . random_int(1, 15)));
-            $production->setNbDays(rand(1, 8));
+            $production->setNbDays(rand(1, 6));
             $production->setCreatedAt(new \DateTime());
             $this->manager->persist($production);
             $employee->addProduction($production);
+            
             sleep(1);
         }
         

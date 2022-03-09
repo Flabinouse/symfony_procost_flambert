@@ -12,6 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 
 final class ProjectController extends AbstractController
 {
@@ -27,13 +28,18 @@ final class ProjectController extends AbstractController
      * @Route("/project/list", name="project_list", methods={"GET"})
      */
 
-    public function listProject(): Response
+    public function listProject(Request $request, PaginatorInterface $paginator): Response
     {
         $projects = $this->repository->findAll();
+        $filterProjects = $paginator->paginate(
+            $projects,
+            $request->query->getInt('page', 1),
+            10
+        );
 
         return $this->render('project/list_project.html.twig', [
             'controller_name' => 'ProjectController',
-            'projects' => $projects,
+            'projects' => $filterProjects,
         ]);
     }
 
