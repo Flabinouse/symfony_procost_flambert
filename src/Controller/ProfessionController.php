@@ -6,6 +6,7 @@ namespace App\Controller;
 
 use App\Entity\Profession;
 Use App\Form\ProfessionType;
+use App\Repository\ProfessionRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,9 +17,10 @@ final class ProfessionController extends AbstractController
 {
     private $em;
 
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(EntityManagerInterface $em, ProfessionRepository $er)
     {
         $this->em = $em;
+        $this->er = $er;
     }
 
     /**
@@ -27,18 +29,25 @@ final class ProfessionController extends AbstractController
 
     public function listProfession(): Response
     {
+        $professions = $this->er->findAll();
+
         return $this->render('profession/list_profession.html.twig', [
             'controller_name' => 'ProfessionController',
+            'professions' => $professions,
         ]);
     }
 
     /**
-     * @Route("/profession/form", name="profession_form", methods={"GET", "POST"})
+     * @Route("/profession/form/{id}", name="profession_form", requirements={"id"="\d+"}, methods={"GET", "POST"})
      */
 
-    public function formProfession(Request $request): Response
+    public function formProfession(Request $request, int $id): Response
     {
-        $profession = new Profession();
+        if($id > 0) {
+            $profession = $this->er->find($id);
+        } else {
+            $profession = new Profession();
+        }
         $form = $this->createForm(ProfessionType::class, $profession);
         $form->handleRequest($request);
 

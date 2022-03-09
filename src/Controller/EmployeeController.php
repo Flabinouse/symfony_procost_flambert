@@ -6,6 +6,9 @@ namespace App\Controller;
 
 use App\Entity\Employee;
 use App\Form\EmployeeType;
+use App\Entity\Production;
+use App\Form\ProductionType;
+use App\Repository\EmployeeRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,9 +18,12 @@ use Doctrine\ORM\EntityManagerInterface;
 final class EmployeeController extends AbstractController
 {
     private $em;
-    public function __construct(EntityManagerInterface $em)
+    private $er;
+    
+    public function __construct(EntityManagerInterface $em, EmployeeRepository $er)
     {
         $this->em = $em;
+        $this->er = $er;
     }
 
     /**
@@ -26,21 +32,27 @@ final class EmployeeController extends AbstractController
 
     public function listEmployee(): Response
     {
+        $employees = $this->er->findAll();
+
         return $this->render('employee/list_employee.html.twig', [
             'controller_name' => 'EmployeeController',
+            'employees' => $employees,
         ]);
     }
 
     /**
-     * @Route("/employee/form", name="employee_form", methods={"GET", "POST"})
+     * @Route("/employee/form/{id}", name="employee_form", requirements={"id"="\d+"}, methods={"GET", "POST"})
      */
 
-    public function formEmployee(Request $request): Response
+    public function formEmployee(Request $request, int $id): Response
     {
-        $employee = new Employee();
+        if($id > 0) {
+            $employee = $this->er->find($id);
+        } else {
+            $employee = new Employee();
+        }
         $form = $this->createForm(EmployeeType::class, $employee);
         $form->handleRequest($request);
-        var_dump($form->isSubmitted());
 
         if($form->isSubmitted() && $form->isValid()) {
             $this->em->persist($employee);
@@ -55,13 +67,30 @@ final class EmployeeController extends AbstractController
     }
 
     /**
-     * @Route("/employee/fiche", name="employee_fiche", methods={"GET"})
+     * @Route("/employee/detail/{id}", name="employee_detail", requirements={"id"="\d+"}, methods={"GET", "POST"})
      */
 
-    public function ficheEmployee(): Response
+    public function detailEmployee(Request $request, int $id): Response
     {
-        return $this->render('employee/fiche_employee.html.twig', [
+        $employee = $this->er->find($id);
+
+        $production = new Production();
+        $production->setEmployee($employee);
+        $form = $this->createForm(ProductionType::class, $production);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $production->setCreatedAt(new \DateTime());
+            $this->em->persist($production);
+            $this->em->flush();
+
+            return $this->redirectToRoute('employee_detail', ['id' => $id]);
+        }
+
+        return $this->render('employee/detail_employee.html.twig', [
             'controller_name' => 'EmployeeController',
+            'employee' => $employee,
+            'form' => $form->createView(),
         ]);
     }
 }

@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Repository\ProfessionRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass=ProfessionRepository::class)
@@ -32,7 +34,12 @@ class Profession
     /**
      * @ORM\OneToMany(targetEntity=Employee::class, mappedBy="profession")
      */
-    private $employese;
+    private $employees;
+
+    public function __construct()
+    {
+        $this->employees = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -47,6 +54,33 @@ class Profession
     public function setTitle(string $title): self
     {
         $this->title = $title;
+
+        return $this;
+    }
+
+    public function getEmployees(): Collection
+    {
+        return $this->employees;
+    }
+
+    public function addEmployee(Employee $employee): self
+    {
+        if (!$this->employees->contains($employee)) {
+            $this->employees[] = $employee;
+            $employee->setProfession($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEmployee(Employee $employee): self
+    {
+        if ($this->employees->contains($employee)) {
+            $this->employees->removeElement($employee);
+            if ($employee->getProfession() === $this) {
+                $employee->setProfession(null);
+            }
+        }
 
         return $this;
     }

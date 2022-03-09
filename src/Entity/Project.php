@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Repository\ProjectRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass=ProjectRepository::class)
@@ -67,6 +69,16 @@ class Project
      */
     private $deliveryDate;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Project::class, mappedBy="employee")
+     */
+    private $productions;
+
+    public function __construct()
+    {
+        $this->productions = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -128,6 +140,33 @@ class Project
     public function setDeliveryDate(?\DateTimeInterface $deliveryDate): self
     {
         $this->deliveryDate = $deliveryDate;
+
+        return $this;
+    }
+
+    public function getProductions(): Collection
+    {
+        return $this->productions;
+    }
+
+    public function addProduction(Production $production): self
+    {
+        if (!$this->productions->contains($production)) {
+            $this->productions[] = $production;
+            $production->setProject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduction(Production $production): self
+    {
+        if ($this->productions->contains($production)) {
+            $this->productions->removeElement($production);
+            if ($production->getProject() === $this) {
+                $production->setProject(null);
+            }
+        }
 
         return $this;
     }

@@ -22,28 +22,24 @@
                         <table class="table table-striped table-bordered table-sm">
                             <tbody>
                                 <tr>
-                                    <th>Prénom</td>
-                                    <td>Jack</td>
-                                </tr>
-                                <tr>
                                     <th>Nom</td>
-                                    <td>FROST</td>
+                                    <td>{{ project.name }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Email</td>
-                                    <td>jfrost@procost.com</td>
+                                    <th>Description</td>
+                                    <td>{{ project.description }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Métier</td>
-                                    <td>Web developer</td>
+                                    <th>Prix de vente</td>
+                                    <td>{{ project.sellPrice }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Coût journalier</td>
-                                    <td>500 €</td>
+                                    <th>Date de création</td>
+                                    <td>{{ project.createdAt|date('Y-m-d') }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Date d'embauche</td>
-                                    <td>1 mai 2018</td>
+                                    <th>Date de livraison</td>
+                                    <td>{{ project.deliveryDate|date('Y-m-d') }}</td>
                                 </tr>
                             </tbody>
                         </table>

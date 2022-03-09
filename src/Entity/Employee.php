@@ -2,9 +2,12 @@
 
 namespace App\Entity;
 
+use App\Entity\Production;
 use App\Repository\EmployeeRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass=EmployeeRepository::class)
@@ -77,6 +80,16 @@ class Employee
      */
     private $hireDate;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Production::class, mappedBy="employee")
+     */
+    private $productions;
+
+    public function __construct()
+    {
+        $this->productions = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -123,7 +136,7 @@ class Employee
         return $this->profession;
     }
 
-    public function setProfession(Profession $profession): self
+    public function setProfession(?Profession $profession): self
     {
         $this->profession = $profession;
 
@@ -150,6 +163,33 @@ class Employee
     public function setHireDate(\DateTimeInterface $hireDate): self
     {
         $this->hireDate = $hireDate;
+
+        return $this;
+    }
+
+    public function getProductions(): Collection
+    {
+        return $this->productions;
+    }
+
+    public function addProduction(Production $production): self
+    {
+        if (!$this->productions->contains($production)) {
+            $this->productions[] = $production;
+            $production->setEmployee($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduction(Production $production): self
+    {
+        if ($this->productions->contains($production)) {
+            $this->productions->removeElement($production);
+            if ($production->getEmployee() === $this) {
+                $production->setEmployee(null);
+            }
+        }
 
         return $this;
     }

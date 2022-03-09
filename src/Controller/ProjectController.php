@@ -6,6 +6,7 @@ namespace App\Controller;
 
 use App\Entity\Project;
 use App\Form\ProjectType;
+use App\Repository\ProjectRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,9 +17,10 @@ final class ProjectController extends AbstractController
 {
     private $em;
 
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(EntityManagerInterface $em, ProjectRepository $repository)
     {
         $this->em = $em;
+        $this->repository = $repository;
     }
 
     /**
@@ -27,18 +29,25 @@ final class ProjectController extends AbstractController
 
     public function listProject(): Response
     {
+        $projects = $this->repository->findAll();
+
         return $this->render('project/list_project.html.twig', [
             'controller_name' => 'ProjectController',
+            'projects' => $projects,
         ]);
     }
 
     /**
-     * @Route("/project/form", name="project_form", methods={"GET", "POST"})
+     * @Route("/project/form/{id}", name="project_form", requirements={"id"="\d+"},methods={"GET", "POST"})
      */
 
-    public function formProject(Request $request): Response
+    public function formProject(Request $request, int $id): Response
     {
-        $project = new Project();
+        if($id > 0) {
+            $project = $this->repository->find($id);
+        } else {
+            $project = new Project();
+        }
         $form = $this->createForm(ProjectType::class, $project);
         $form->handleRequest($request);
 
@@ -57,13 +66,16 @@ final class ProjectController extends AbstractController
     }
 
     /**
-     * @Route("/project/fiche", name="project_fiche", methods={"GET"})
+     * @Route("/project/detail/{id}", name="project_detail", requirements={"id"="\d+"}, methods={"GET", "POST"})
      */
 
-    public function ficheProject(): Response
+    public function detailProject(int $id): Response
     {
-        return $this->render('project/fiche_project.html.twig', [
+        $project = $this->repository->find($id);
+
+        return $this->render('project/detail_project.html.twig', [
             'controller_name' => 'ProjectController',
+            'project' => $project,
         ]);
     }
 }
