@@ -10,7 +10,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
-
 class ProductionType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -19,6 +18,12 @@ class ProductionType extends AbstractType
             ->add('project', EntityType::class, [
                 'class' => Project::class,
                 'choice_label' => 'name',
+                'choice_attr' => function ($project) {
+                    if($project->getDeliveryDate() !== null) {
+                        return ['disabled' => 'disabled'];
+                    } 
+                    return ['enabled' => 'enabled'];
+                },
                 'label' => 'Projet'
             ])
             ->add('nbDays', NumberType::class, [

@@ -9,7 +9,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 class ProjectType extends AbstractType
 {
@@ -26,10 +25,6 @@ class ProjectType extends AbstractType
             ])
             ->add('sellPrice', NumberType::class, [
                 'label' => 'Prix de vente',
-                'required' => true,  
-            ])
-            ->add('deliveryDate', DateType::class, [
-                'label' => 'Date de livraison',
                 'required' => true,  
             ])
         ;

@@ -4,9 +4,8 @@ namespace App\Repository;
 
 use App\Entity\Employee;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\OptimisticLockException;
-use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\EntityManagerInterface;
 
 /**
  * @method Employee|null find($id, $lockMode = null, $lockVersion = null)
@@ -16,70 +15,31 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class EmployeeRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    private $em;
+
+    public function __construct(ManagerRegistry $registry, EntityManagerInterface $em)
     {
         parent::__construct($registry, Employee::class);
+        $this->em = $em;
     }
 
-    /**
-     * @throws ORMException
-     * @throws OptimisticLockException
-     */
-    public function add(Employee $entity, bool $flush = true): void
+    public function findTopEmployees(): array
     {
-        $this->_em->persist($entity);
-        if ($flush) {
-            $this->_em->flush();
-        }
+        $query = $this->em->createQuery(
+            'SELECT em.firstName, em.lastName, em.hireDate, (em.dailyCost * sum(prod.nbDays)) as totalCost
+            FROM App\Entity\Employee em, App\Entity\Production prod, App\Entity\Project pjr
+            WHERE em.id = prod.employee
+            AND prod.project = pjr.id
+            GROUP BY em.id
+            ORDER BY totalCost DESC'
+        );
+
+        return $query->getResult();
     }
 
-    /**
-     * @throws ORMException
-     * @throws OptimisticLockException
-     */
-    public function remove(Employee $entity, bool $flush = true): void
-    {
-        $this->_em->remove($entity);
-        if ($flush) {
-            $this->_em->flush();
-        }
-    }
-
-    public function countEmployees(): int
-    {
-        return $this->createQueryBuilder('e')
-            ->select('COUNT(e)')
-            ->getQuery()
-            ->getSingleScalarResult()
-        ;
-    }
-
-    // /**
-    //  * @return Employee[] Returns an array of Employee objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('e')
-            ->andWhere('e.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('e.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Employee
-    {
-        return $this->createQueryBuilder('e')
-            ->andWhere('e.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
+//     SELECT em.first_name, em.last_name, em.hire_date, (em.daily_cost * sum(prod.nb_days)) as totatCost
+// FROM employee em, production prod, project pjr
+// WHERE em.id = prod.employee_id
+// AND prod.project_id = pjr.id
+// GROUP BY em.id;
 }

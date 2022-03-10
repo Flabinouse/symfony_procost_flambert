@@ -38,17 +38,11 @@ class Production
     private $createdAt;
 
     /**
-     * @var Employee
-     */
-    /**
      * @ORM\ManyToOne(targetEntity=Employee::class, inversedBy="productions")
      * @ORM\JoinColumn(nullable=false)
      */
     private $employee;
 
-    /**
-     * @var Project
-     */
     /**
      * @ORM\ManyToOne(targetEntity=Project::class, inversedBy="productions")
      * @ORM\JoinColumn(nullable=false)

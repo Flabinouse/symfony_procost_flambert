@@ -85,6 +85,7 @@ final class EmployeeController extends AbstractController
         $production->setEmployee($employee);
         $form = $this->createForm(ProductionType::class, $production);
         $form->handleRequest($request);
+        
         $filterEmployeeProductions = $paginator->paginate(
             $employee->getProductions(),
             $request->query->getInt('page', 1),

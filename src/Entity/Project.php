@@ -70,7 +70,7 @@ class Project
     private $deliveryDate;
 
     /**
-     * @ORM\OneToMany(targetEntity=Project::class, mappedBy="employee")
+     * @ORM\OneToMany(targetEntity=Production::class, mappedBy="project")
      */
     private $productions;
 

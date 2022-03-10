@@ -7,8 +7,8 @@ use App\Repository\EmployeeRepository;
 use App\Repository\ProjectRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Validator\Constraints\Length;
 
 class MainController extends AbstractController
 {
@@ -31,22 +31,22 @@ class MainController extends AbstractController
     {
         $productions = $this->pr->findTenProdByDate();
         $prodDays = $this->pr->countProductionDays();
-        $nbEmployees = $this->er->countEmployees();
         $nbInProgressProjects = $this->prj->countInProgressProject();
         $nbFinishedProjects = $this->prj->countFinishedProject();
         $projects = $this->prj->findFiveProjByDate();
+        $allEmployeesStats = $this->er->findTopEmployees();
 
         $deliveryRate = number_format(($nbFinishedProjects * 100) / ($nbFinishedProjects + $nbInProgressProjects), 2);
 
         return $this->render('main/index.html.twig', [
-            'controller_name' => 'MainController',
             'productions' => $productions,
-            'nbEmployees' => $nbEmployees,
+            'nbEmployees' => count($allEmployeesStats),
             'prodDays' => $prodDays,
             'nbInProgressProjects' => $nbInProgressProjects,
             'nbFinishedProjects' => $nbFinishedProjects,
             'deliveryRate' => $deliveryRate,
             'projects' => $projects,
+            'topEmployees' => $allEmployeesStats[0],
         ]);
     }
 }

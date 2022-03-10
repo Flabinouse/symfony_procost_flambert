@@ -81,17 +81,17 @@
                                     <div class="text-center">
                                         <img src="img/ui-zac.jpg" class="rounded-circle" width="58">
                                         <p class="mt-2">
-                                            <strong>Zac Producteur</strong>
+                                            <strong>{{ topEmployees.firstName }} {{ topEmployees.lastName }}</strong>
                                         </p>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <p class="small mt">EMPLOYÉ DEPUIS</p>
-                                            <p>Février 2012</p>
+                                            <p>{{ topEmployees.hireDate|date('Y-m-d') }}</p>
                                         </div>
                                         <div class="col-md-6">
                                             <p class="small mt">COÛT TOTAL</p>
-                                            <p>34 567 €</p>
+                                            <p>{{ topEmployees.totalCost }} €</p>
                                         </div>
                                     </div>
                                 </div>
@@ -119,7 +119,11 @@
                                     </th>
                                     <th>{{ project.createdAt|date('Y-m-d') }}</th>
                                     <th>{{ project.sellPrice }} €</th>
-                                    <th>3 200 €</th>
+                                    {% set totalCost = 0 %}
+                                    {% for production in project.productions %}
+                                        {% set totalCost = totalCost + (production.nbDays * production.employee.dailyCost)  %}
+                                    {% endfor %}
+                                    <th>{{ totalCost }} €</th>
                                     <th>
                                         {% if project.deliveryDate is same as NULL %}
                                             <span class="badge badge-danger">NON</span>

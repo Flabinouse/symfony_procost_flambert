@@ -71,7 +71,7 @@ class AppFixtures extends Fixture
             $project->setSellPrice(rand(15000, 30000));
             $this->addReference(Project::class . $i, $project);
             $this->manager->persist($project);
-            sleep(1);
+            // sleep(1);
         }
         
         $this->manager->persist($project);
@@ -87,7 +87,7 @@ class AppFixtures extends Fixture
             $this->manager->persist($production);
             $employee->addProduction($production);
             
-            sleep(1);
+            // sleep(1);
         }
         
         $this->manager->persist($production);

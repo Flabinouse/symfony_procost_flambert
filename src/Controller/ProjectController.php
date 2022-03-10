@@ -6,6 +6,7 @@ namespace App\Controller;
 
 use App\Entity\Project;
 use App\Form\ProjectType;
+use App\Form\ValidationType;
 use App\Repository\ProjectRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -25,26 +26,39 @@ final class ProjectController extends AbstractController
     }
 
     /**
-     * @Route("/project/list", name="project_list", methods={"GET"})
+     * @Route("/project/list", name="project_list", methods={"GET", "POST"})
      */
 
     public function listProject(Request $request, PaginatorInterface $paginator): Response
     {
         $projects = $this->repository->findAll();
+        
         $filterProjects = $paginator->paginate(
             $projects,
             $request->query->getInt('page', 1),
             10
         );
 
+        $form = $this->createForm(ValidationType::class);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $project = $this->repository->find($form->getData()['id']);
+            $project->setDeliveryDate(new \DateTime());
+            $this->em->persist($project);
+            $this->em->flush();
+
+            return $this->redirectToRoute('project_list');
+        }
+
         return $this->render('project/list_project.html.twig', [
-            'controller_name' => 'ProjectController',
             'projects' => $filterProjects,
+            'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/project/form/{id}", name="project_form", requirements={"id"="\d+"},methods={"GET", "POST"})
+     * @Route("/project/form/{id}", name="project_form", requirements={"id"="\d+"}, methods={"GET", "POST"})
      */
 
     public function formProject(Request $request, int $id): Response
@@ -59,6 +73,7 @@ final class ProjectController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()) {
             $project->setCreatedAt(new \DateTime());
+            $project->setDeliveryDate(NULL);
             $this->em->persist($project);
             $this->em->flush();
 
@@ -66,7 +81,6 @@ final class ProjectController extends AbstractController
         }
 
         return $this->render('project/form_project.html.twig', [
-            'controller_name' => 'ProjectController',
             'form' => $form->createView(),
         ]);
     }
@@ -75,13 +89,21 @@ final class ProjectController extends AbstractController
      * @Route("/project/detail/{id}", name="project_detail", requirements={"id"="\d+"}, methods={"GET", "POST"})
      */
 
-    public function detailProject(int $id): Response
+    public function detailProject(Request $request, int $id, PaginatorInterface $paginator): Response
     {
         $project = $this->repository->find($id);
 
+        $statsProject = $this->repository->sumDailyCostEmployee($id);
+
+        $filterProjects = $paginator->paginate(
+            $statsProject,
+            $request->query->getInt('page', 1),
+            5
+        );
+
         return $this->render('project/detail_project.html.twig', [
-            'controller_name' => 'ProjectController',
-            'project' => $project,
+            'project' => $project,       
+            'productions' => $filterProjects,
         ]);
     }
 }
