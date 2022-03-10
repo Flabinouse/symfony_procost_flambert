@@ -38,7 +38,7 @@ class AppFixtures extends Fixture
             $employee->setLastname('DOE'.$i);
             $employee->setEmail('johndoe'.$i.'@gmail.com');
             $employee->setProfession($this->getReference(Profession::class . random_int(0, 6)));
-            $employee->setDailyCost(rand(50, 300));
+            $employee->setDailyCost(rand(200, 500));
             $employee->setHireDate(new \DateTime());
             $this->addReference(Employee::class . $i, $employee);
             $employee = $this->loadProduction($i, $employee);
@@ -66,12 +66,16 @@ class AppFixtures extends Fixture
             $project = new Project();
             $project->setName('Projet'.$i);
             $project->setDescription('description'.$i);
-            $project->setCreatedAt(new \DateTime(2019 . '-' . 03 . '-' . $i));
-            $project->setDeliveryDate(null);
-            $project->setSellPrice(rand(15000, 30000));
+            $project->setCreatedAt(new \DateTime(2019 . '-' . 10 . '-' . $i));
+            if($i < 4) {
+                $project->setDeliveryDate(new \DateTime(2021 . '-' . 03 . '-' . $i));
+            } else {
+                $project->setDeliveryDate(NULL);
+            }
+            $project->setSellPrice(rand(10000, 20000));
             $this->addReference(Project::class . $i, $project);
             $this->manager->persist($project);
-            // sleep(1);
+            sleep(1);
         }
         
         $this->manager->persist($project);
@@ -82,12 +86,11 @@ class AppFixtures extends Fixture
         for($i = 1; $i < 6; $i++) {
             $production = new Production();
             $production->setProject($this->getReference(Project::class . random_int(1, 15)));
-            $production->setNbDays(rand(1, 6));
+            $production->setNbDays(rand(1, 9));
             $production->setCreatedAt(new \DateTime());
             $this->manager->persist($production);
             $employee->addProduction($production);
             
-            // sleep(1);
         }
         
         $this->manager->persist($production);

@@ -67,12 +67,12 @@ final class ProjectController extends AbstractController
             $project = $this->repository->find($id);
         } else {
             $project = new Project();
+            $project->setCreatedAt(new \DateTime());
         }
         $form = $this->createForm(ProjectType::class, $project);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-            $project->setCreatedAt(new \DateTime());
             $project->setDeliveryDate(NULL);
             $this->em->persist($project);
             $this->em->flush();
@@ -94,6 +94,7 @@ final class ProjectController extends AbstractController
         $project = $this->repository->find($id);
 
         $statsProject = $this->repository->sumDailyCostEmployee($id);
+        $nbEmployee = count($statsProject);
 
         $filterProjects = $paginator->paginate(
             $statsProject,
@@ -104,6 +105,7 @@ final class ProjectController extends AbstractController
         return $this->render('project/detail_project.html.twig', [
             'project' => $project,       
             'productions' => $filterProjects,
+            'nbEmployee' => $nbEmployee,
         ]);
     }
 }

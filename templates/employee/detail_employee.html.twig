@@ -92,7 +92,7 @@
                                 {% for production in filterEmployeeProductions %}
                                     <tr>
                                         <td>{{ production.project.name }}</td>
-                                        <td>{{ production.nbDays }}</td>
+                                        <td>{{ production.nbDays }} jours</td>
                                         <td>{{ production.createdAt|date('Y-m-d') }}</td>
                                         <td>{{ production.nbDays * employee.dailyCost }} €</td>
                                     </tr>

@@ -35,20 +35,21 @@ class ProjectRepository extends ServiceEntityRepository
         ;
     }
 
-    public function countFinishedProject(): int
+    public function getFinishedProject(): array
     {
         return $this->createQueryBuilder('p')
-            ->select('COUNT(p)')
+            ->select('p.id, p.name, p.deliveryDate, p.sellPrice')
             ->where('p.deliveryDate IS NOT NULL')
+            ->orderBy('p.deliveryDate', 'DESC')
             ->getQuery()
-            ->getSingleScalarResult()
+            ->getResult()
         ;
     }
 
     public function findFiveProjByDate(): array
     {
         return $this->createQueryBuilder('p')
-            ->orderBy('p.deliveryDate', 'DESC')
+            ->orderBy('p.createdAt', 'DESC')
             ->setMaxResults(5)
             ->getQuery()
             ->getResult()
@@ -64,6 +65,19 @@ class ProjectRepository extends ServiceEntityRepository
             AND prod.project = pjr.id
             AND pjr.id = :id
             GROUP BY em.id'
+        )->setParameter('id', $id);
+
+        return $query->getResult();
+    }
+
+    public function costProjectById(int $id): array
+    {
+        $query = $this->em->createQuery(
+            'SELECT SUM(em.dailyCost * prod.nbDays) as totalCost
+            FROM App\Entity\Employee em, App\Entity\Production prod, App\Entity\Project pjr
+            WHERE em.id = prod.employee
+            AND prod.project = pjr.id
+            AND pjr.id = :id'
         )->setParameter('id', $id);
 
         return $query->getResult();

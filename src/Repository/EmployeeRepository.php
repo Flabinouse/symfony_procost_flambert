@@ -36,10 +36,4 @@ class EmployeeRepository extends ServiceEntityRepository
 
         return $query->getResult();
     }
-
-//     SELECT em.first_name, em.last_name, em.hire_date, (em.daily_cost * sum(prod.nb_days)) as totatCost
-// FROM employee em, production prod, project pjr
-// WHERE em.id = prod.employee_id
-// AND prod.project_id = pjr.id
-// GROUP BY em.id;
 }

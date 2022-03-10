@@ -53,7 +53,7 @@
                                 <div class="card-header text-center">Rentabilité</div>
                                 <div class="card-body">
                                     <p class="text-muted">
-                                        <i class="fa fa-database mr-2 text-primary"></i> 70% RENTABLE
+                                        <i class="fa fa-database mr-2 text-primary"></i> {{ gainRate }}% RENTABLE
                                     </p>
                                     <div class="embed-responsive embed-responsive-16by9">
                                         <canvas id="ratio-chart" class="embed-responsive-item"></canvas>
@@ -157,8 +157,8 @@
 {% block javascripts %}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js" integrity="sha256-oSgtFCCmHWRPQ/JmR4OoZ3Xke1Pw4v50uh6pLcu+fIc=" crossorigin="anonymous"></script>
         <script>
-            var ratioData = [70, 30];
-            var deliveredData = [35, 65];
+            var ratioData = [{{ gainRate }}, {{100 - gainRate }}];
+            var deliveredData = [{{ deliveryRate }}, {{ 100 - deliveryRate }}];
         </script>
         <script src="{{ asset('assets/js/dashboard.js') }}"></script>
 {% endblock %}

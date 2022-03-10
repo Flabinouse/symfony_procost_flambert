@@ -32,21 +32,37 @@ class MainController extends AbstractController
         $productions = $this->pr->findTenProdByDate();
         $prodDays = $this->pr->countProductionDays();
         $nbInProgressProjects = $this->prj->countInProgressProject();
-        $nbFinishedProjects = $this->prj->countFinishedProject();
+        $finishedProjects = $this->prj->getFinishedProject();
         $projects = $this->prj->findFiveProjByDate();
         $allEmployeesStats = $this->er->findTopEmployees();
 
-        $deliveryRate = number_format(($nbFinishedProjects * 100) / ($nbFinishedProjects + $nbInProgressProjects), 2);
+        $deliveryRate = number_format((count($finishedProjects) * 100) / (count($finishedProjects) + $nbInProgressProjects), 2);
+
+        $nbGainful = 0;
+        foreach($finishedProjects as $projet){
+            $costProject = $this->prj->costProjectById($projet['id']);
+            if($projet['sellPrice'] > (int)$costProject[0]['totalCost']){
+                $nbGainful++;
+            }
+        }
+
+        if(count($finishedProjects) === 0){
+            $gainRate = 0;
+        } else {
+            $gainRate = number_format(($nbGainful * 100) / count($finishedProjects), 2);
+        }
+        // $gainRate = number_format($nbGainful / count($finishedProjects) * 100, 2);
 
         return $this->render('main/index.html.twig', [
             'productions' => $productions,
             'nbEmployees' => count($allEmployeesStats),
             'prodDays' => $prodDays,
             'nbInProgressProjects' => $nbInProgressProjects,
-            'nbFinishedProjects' => $nbFinishedProjects,
+            'nbFinishedProjects' => count($finishedProjects),
             'deliveryRate' => $deliveryRate,
             'projects' => $projects,
             'topEmployees' => $allEmployeesStats[0],
+            'gainRate' => $gainRate,
         ]);
     }
 }
