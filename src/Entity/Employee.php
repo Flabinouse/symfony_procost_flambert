@@ -46,6 +46,7 @@ class Employee
      * @var string
      * 
      * @Assert\NotBlank(message="Ce champ ne peut pas être vide")
+     * @Assert\Email(message="L'email {{ value }} n'est pas valide")
      */
     /**
      * @ORM\Column(type="string", length=255)

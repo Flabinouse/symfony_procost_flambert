@@ -8,7 +8,6 @@ use App\Repository\ProjectRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Validator\Constraints\Length;
 
 class MainController extends AbstractController
 {
@@ -36,6 +35,10 @@ class MainController extends AbstractController
         $projects = $this->prj->findFiveProjByDate();
         $allEmployeesStats = $this->er->findTopEmployees();
 
+        if(!$productions || !$projects || !$allEmployeesStats || !$prodDays || !$nbInProgressProjects || !$finishedProjects) {
+            throw $this->createNotFoundException('404 Not Found');
+        }
+
         $deliveryRate = number_format((count($finishedProjects) * 100) / (count($finishedProjects) + $nbInProgressProjects), 2);
 
         $nbGainful = 0;
@@ -51,7 +54,6 @@ class MainController extends AbstractController
         } else {
             $gainRate = number_format(($nbGainful * 100) / count($finishedProjects), 2);
         }
-        // $gainRate = number_format($nbGainful / count($finishedProjects) * 100, 2);
 
         return $this->render('main/index.html.twig', [
             'productions' => $productions,

@@ -9,7 +9,6 @@ use App\Form\EmployeeType;
 use App\Entity\Production;
 use App\Form\ProductionType;
 use App\Repository\EmployeeRepository;
-use ContainerFNxgEOQ\PaginatorInterface_82dac15;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -35,6 +34,11 @@ final class EmployeeController extends AbstractController
     public function listEmployee(Request $request, PaginatorInterface $paginator): Response
     {
         $employees = $this->er->findAll();
+
+        if(!$employees) {
+            throw $this->createNotFoundException('No employee found in database');
+        }
+        
         $filterEmployees = $paginator->paginate(
             $employees,
             $request->query->getInt('page', 1),
@@ -62,10 +66,11 @@ final class EmployeeController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
+            $this->addFlash('success', 'Employé sauvegardé !');
             $this->em->persist($employee);
             $this->em->flush();
 
-            return $this->redirectToRoute('employee_list');
+            return $this->redirectToRoute('employee_form', ['id' => $id]);
         }
 
         return $this->render('employee/form_employee.html.twig', [
@@ -81,6 +86,10 @@ final class EmployeeController extends AbstractController
     {
         $employee = $this->er->find($id);
 
+        if(!$employee) {
+            throw $this->createNotFoundException('No employee found in database');
+        }
+
         $production = new Production();
         $production->setEmployee($employee);
         $form = $this->createForm(ProductionType::class, $production);
@@ -93,6 +102,7 @@ final class EmployeeController extends AbstractController
         );
 
         if($form->isSubmitted() && $form->isValid()) {
+            $this->addFlash('success', 'Production ajoutée !');
             $production->setCreatedAt(new \DateTime());
             $this->em->persist($production);
             $this->em->flush();

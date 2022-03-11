@@ -35,6 +35,7 @@ class Project
      * @var string
      * 
      * @Assert\NotBlank(message="Ce champ ne peut pas être vide")
+     * @Assert\Length(min="15", minMessage="Le description du projet doit faire au moins {{ limit }} caractères")
      */
     /**
      * @ORM\Column(type="string", length=255)

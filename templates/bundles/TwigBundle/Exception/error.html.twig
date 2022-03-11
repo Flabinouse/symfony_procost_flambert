@@ -1,0 +1,13 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <main class="app-content">
+            <div class="app-title">
+                <div>
+                    <h1><i class="fa fa-bug"></i>&nbsp;Oops! An Error Occurred</h1>
+                </div>
+            </div>
+            <p>Something went wrong, please contact the support service or <a href="{{ path('main_index') }}">return to the dashboard</a>.
+            </p>
+        </main>
+{% endblock %}

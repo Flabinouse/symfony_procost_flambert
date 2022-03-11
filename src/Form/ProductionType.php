@@ -27,7 +27,8 @@ class ProductionType extends AbstractType
                 'label' => 'Projet'
             ])
             ->add('nbDays', NumberType::class, [
-                'label' => 'Nombre de jours'
+                'label' => 'Nombre de jours',
+                'required' => true  
             ])
         ;
     }

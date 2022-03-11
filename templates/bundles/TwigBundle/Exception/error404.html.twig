@@ -1,0 +1,14 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <main class="app-content">
+            <div class="app-title">
+                <div>
+                    <h1><i class="fa fa-bug"></i>&nbsp;Page not found</h1>
+                </div>
+            </div>
+            <p>The requested page couldn't be located. Checkout for any URL
+               misspelling or <a href="{{ path('main_index') }}">return to the dashboard</a>.
+            </p>
+        </main>
+{% endblock %}

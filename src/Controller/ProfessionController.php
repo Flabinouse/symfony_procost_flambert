@@ -7,7 +7,6 @@ namespace App\Controller;
 use App\Entity\Profession;
 Use App\Form\ProfessionType;
 use App\Repository\ProfessionRepository;
-use Container00xJNnB\PaginatorInterface_82dac15;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -32,6 +31,11 @@ final class ProfessionController extends AbstractController
     public function listProfession(Request $request, PaginatorInterface $paginator): Response
     {
         $professions = $this->er->findAll();
+
+        if(!$professions) {
+            throw $this->createNotFoundException('No profession found in database');
+        }
+
         $filterProfessions = $paginator->paginate(
             $professions,
             $request->query->getInt('page', 1),
@@ -59,10 +63,13 @@ final class ProfessionController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
+            $this->addFlash('success', 'Métier sauvegardé !');
             $this->em->persist($profession);
             $this->em->flush();
 
-            return $this->redirectToRoute('profession_list');
+            return $this->redirectToRoute('profession_form', [
+                'id' => $id,
+            ]);
         }
 
         return $this->render('profession/form_profession.html.twig', [

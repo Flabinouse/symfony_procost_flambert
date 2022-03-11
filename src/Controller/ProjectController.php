@@ -26,12 +26,16 @@ final class ProjectController extends AbstractController
     }
 
     /**
-     * @Route("/project/list", name="project_list", methods={"GET", "POST"})
+     * @Route("/project/list", name="project_list", methods={"GET"})
      */
 
     public function listProject(Request $request, PaginatorInterface $paginator): Response
     {
         $projects = $this->repository->findAll();
+
+        if(!$projects) {
+            throw $this->createNotFoundException('No project found in database');
+        }
         
         $filterProjects = $paginator->paginate(
             $projects,
@@ -39,21 +43,8 @@ final class ProjectController extends AbstractController
             10
         );
 
-        $form = $this->createForm(ValidationType::class);
-        $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid()) {
-            $project = $this->repository->find($form->getData()['id']);
-            $project->setDeliveryDate(new \DateTime());
-            $this->em->persist($project);
-            $this->em->flush();
-
-            return $this->redirectToRoute('project_list');
-        }
-
         return $this->render('project/list_project.html.twig', [
             'projects' => $filterProjects,
-            'form' => $form->createView(),
         ]);
     }
 
@@ -73,11 +64,12 @@ final class ProjectController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
+            $this->addFlash('success', 'Projet sauvegardé !');
             $project->setDeliveryDate(NULL);
             $this->em->persist($project);
             $this->em->flush();
 
-            return $this->redirectToRoute('project_list');
+            return $this->redirectToRoute('project_form', ['id' => $id]);
         }
 
         return $this->render('project/form_project.html.twig', [
@@ -92,6 +84,10 @@ final class ProjectController extends AbstractController
     public function detailProject(Request $request, int $id, PaginatorInterface $paginator): Response
     {
         $project = $this->repository->find($id);
+
+        if(!$project) {
+            throw $this->createNotFoundException('No project found in database');
+        }
 
         $statsProject = $this->repository->sumDailyCostEmployee($id);
         $nbEmployee = count($statsProject);

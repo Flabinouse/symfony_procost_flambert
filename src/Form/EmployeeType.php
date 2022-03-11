@@ -11,6 +11,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 
 
 class EmployeeType extends AbstractType
@@ -19,13 +20,16 @@ class EmployeeType extends AbstractType
     {
         $builder
             ->add('firstName', TextType::class, [
-                'label' => 'Prénom'          
+                'label' => 'Prénom',    
+                'required' => true,    
             ])
             ->add('lastName', TextType::class, [
-                'label' => 'Nom'
+                'label' => 'Nom',
+                'required' => true,
             ])
-            ->add('email', TextType::class, [
-                'label' => 'Email'
+            ->add('email', EmailType::class, [
+                'label' => 'Email',
+                'required' => true,
             ])
             ->add('profession', EntityType::class, [
                 'class' => Profession::class,
@@ -33,10 +37,12 @@ class EmployeeType extends AbstractType
                 'label' => 'Métier'
             ])
             ->add('dailyCost', NumberType::class, [
-                'label' => 'Coût journalier'
+                'label' => 'Coût journalier',
+                'required' => true,
             ])
             ->add('hireDate', DateType::class, [
-                'label' => 'Date d\'embauche'
+                'label' => 'Date d\'embauche',
+                'required' => true,
             ])
         ;
     }

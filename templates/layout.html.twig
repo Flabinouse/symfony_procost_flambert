@@ -7,12 +7,8 @@
 {% block body %}
 <!-- Navbar -->
         <header class="app-header"><a class="app-header__logo" href="{{ path('main_index') }}">Procost</a>
-            {# <a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a> #}
             <!-- Navbar Right Menu-->
             <ul class="app-nav">
-                {# <li class="app-search">
-                    <a href="login.html" class="btn btn-info">Se déconnecter</a>
-                </li> #}
             </ul>
         </header>
         <!-- Sidebar menu-->
@@ -20,7 +16,7 @@
         <aside class="app-sidebar">
             {% set current_route = app.request.attributes.get('_route') %}
             <div class="app-sidebar__user">
-                <img class="app-sidebar__user-avatar" src="img/user.jpg" alt="User Image">
+                <img class="app-sidebar__user-avatar" src="{{ asset('assets/img/user.jpg') }}" alt="User Image">
                 <div>
                     <p class="app-sidebar__user-name">John Doe</p>
                     <p class="app-sidebar__user-designation">Manager</p>

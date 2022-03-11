@@ -14,7 +14,8 @@ class ProfessionType extends AbstractType
     {
         $builder
             ->add('title', TextType::class, [
-                'label' => 'Intitulé'
+                'label' => 'Intitulé',
+                'required' => true,
             ])
         ;
     }

@@ -17,9 +17,14 @@
                 </ul>
             </div>
             <div class="tile">
-                    <div class="alert alert-dismissible alert-success my-4">
-                        <button class="close" type="button" data-dismiss="alert">×</button><strong>Well done!</strong> Message flash.
-                    </div>
+                    {% for flash_type, messages in app.flashes %}
+                        {% for message in messages %}
+                            <div class="alert alert-dismissible alert-{{ flash_type }} my-4" role="alert">
+                                <button class="close" type="button" data-dismiss="alert">×</button>
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
                     {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
                     <section>
                         <h3>Informations générales</h3>
